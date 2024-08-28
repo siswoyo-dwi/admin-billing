@@ -1,0 +1,36 @@
+{
+  "master": {
+    "logo_app": "/images/logo-undip.png",
+    "name_app": "PPID"
+  },
+  "data_static": {
+    "status_pengaduan": [ 
+      { "value": 0 , "text": "Ditolak"},
+      { "value": 1 , "text": "Dibuat"},
+      { "value": 2 , "text": "Di Acc Operator"},
+      { "value": 3 , "text": "Di Acc Supervisor"},
+      { "value": 4 , "text": "Di Acc Manajer"}
+    ],
+    "jenis_kategori": [
+      { "value":"permohonan", "text": "PERMOHONAN" },
+      { "value":"pengaduan", "text": "PENGADUAN" }
+    ],
+    "role": [ 
+      { "value": "operator", "text": "OPERATOR" },
+      { "value": "supervisor", "text": "SUPERVISOR" },
+      { "value": "manajer", "text": "MANAJER" },
+      { "value": "pimpinan", "text": "PIMPINAN" }
+    ],
+    "asal_pemohon": [
+      { "value": "dosen", "text": "DOSEN"},
+      { "value": "tendik", "text": "TENDIK"},
+      { "value": "mahasiswa", "text": "MAHASISWA"},
+      { "value": "alumni", "text": "ALUMNI"},
+      { "value": "umum", "text": "UMUM"}
+    ]
+  },
+  "pagination": {
+    "row": 10,
+    "perPage": [10, 20, 50, 100]
+  }
+}
