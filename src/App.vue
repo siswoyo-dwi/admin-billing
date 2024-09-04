@@ -85,8 +85,10 @@ export default {
 					label: "Master", icon: "pi pi-fw pi-star-fill",
 					items: [
 						{label: "Ps", icon: "pi pi-fw pi-table", to: "/ps"},
+						{label: "jajan", icon: "pi pi-fw pi-table", to: "/jajan"},
 					]
 				},
+			
                 // {role: [ 'superuser' ],
                 //     label: "UI Kit", icon: "pi pi-fw pi-star-fill",
                 //     items: [

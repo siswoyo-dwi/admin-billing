@@ -50,7 +50,15 @@ const routes = [
             meta: {
                 breadcrumb: [{ parent: 'Master', label: 'Ps' }],
             },
-        },
+        },        {
+          path: '/jajan',
+          name: 'jajan',
+          exact: true,
+          component: () => import('./pages/jajan/List.vue'),
+          meta: {
+              breadcrumb: [{ parent: 'Master', label: 'jajan' }],
+          },
+      },
           ]},  
     {
         path: '/',

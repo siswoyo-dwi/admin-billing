@@ -25,7 +25,7 @@
               {{1 + index}}
             </template>
           </Column>
-          <Column field="nama_ps" header="Nama Ps" class="" style=""></Column>
+          <Column field="nama_jajan" header="Nama Ps" class="" style=""></Column>
           <Column field="actions" header="" bodyClass="text-center" style="width: 0px">
             <template #body="{ data }">
               <div class="flex sm:flex-row">
@@ -70,7 +70,7 @@ export default {
   methods: {
     async getData(){
       const vm = this
-      const res = await vm.$axios.post('ps/list')
+      const res = await vm.$axios.post('jajan/list')
       // console.log(res)
       if(res.data.status == 200){
         vm.items = res.data.data[0]
