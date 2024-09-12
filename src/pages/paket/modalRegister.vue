@@ -11,19 +11,22 @@
       <div class="" style="">
         <div class="flex flex-column gap-2">
           <label for="nama_paket">Nama Paket</label>
-          <InputText id="nama_paket" v-model="dataForm.nama_paket" aria-describedby="nama_paket-help" :class="{'p-invalid': v$.dataForm.nama_paket.$invalid}"/>
+          <InputText id="nama_paket" v-model="dataForm.nama_paket" aria-describedby="nama_paket-help" :class="{'p-invalid': v$.dataForm.$invalid}"/>
         </div>
+    
         <div class="flex flex-column gap-2">
           <label for="ps_id">Ps</label>
-           <Dropdown 
-            v-model="dataForm.list_ps" 
-            :options="$store.state.data_static.list_ps" 
-            optionLabel="text" 
-            optionValue="value" 
-            placeholder="Pilih Ps" 
-            class="w-full" 
-            :class="{'p-invalid': v$.dataForm.list_ps.$invalid && afterSubmit}" 
-          />
+          <Dropdown id="inventoryStatus"    v-model="dataForm.ps_id"  :options="list_ps" optionLabel="label"             placeholder="Pilih Ps" 
+          class="w-full"    :class="{'p-invalid': v$.dataForm.$invalid && afterSubmit}"/>
+
+        </div>
+        <div class="flex flex-column gap-2">
+          <label for="time">Durasi Paket</label>
+          <InputNumber id="time" integeronly v-model="dataForm.time" aria-describedby="time-help" :class="{'p-invalid': v$.dataForm.$invalid}"/>
+        </div>
+        <div class="flex flex-column gap-2">
+          <label for="harga_paket">Harga Paket</label>
+          <InputNumber id="harga_paket" integeronly v-model="dataForm.harga_paket" aria-describedby="harga_paket-help" :class="{'p-invalid': v$.dataForm.$invalid}"/>
         </div>
       </div>
       <template #footer>
@@ -46,7 +49,7 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 export default {
-  props: [ 'data' ],
+  props: [ 'list_ps' ],
   emits: [ 'refresh' ],
   components: {
   },
@@ -57,10 +60,11 @@ export default {
     return {
       visible: false,
       afterSubmit: false,
-
       dataForm: {
         nama_paket:null,
-        list_ps:JSON.parse(JSON.stringify(this.data))
+        ps_id:null,
+        time:null,
+        harga_paket:null,
       },
     };
   },
@@ -76,18 +80,20 @@ export default {
     return {
       dataForm: {
         nama_paket: { required },
-        list_ps: { required },
+        ps_id: { required },
+        time: { required },
+        harga_paket: { required },
       }
     }
   },
   mounted() {
-    console.log(this.data);
+    console.log(this.list_ps);
     
   },
   methods: {
     openModal(){
       const vm = this
-      vm.visible = true
+      vm.visible = true      
       vm.v$.$reset();
     },
     hideModal(){
@@ -95,21 +101,24 @@ export default {
       vm.visible = false
       vm.dataForm = {
         nama_paket: null,
-        list_ps:null
+        ps_id:null,
+        time:null,
+        harga_paket:null,
       }
     },
     async submit(){
       const vm = this
       vm.afterSubmit = true
-      
-      // const res = await vm.$axios.post('ps/register', vm.dataForm)
-      // if(res.data.status == 200){
-      //   vm.visible = false
-      //   vm.$emit('refresh')
-      //   vm.$toast.add({ severity: 'success', summary: 'Konfirmasi', detail: 'Berhasil Register ps', life: 3000 });
-      // }else{
-      //   vm.$toast.add({ severity: 'error', summary: 'Konfirmasi', detail: 'Gagal Register ps', life: 3000 });
-      // }
+      console.log(vm.dataForm);
+      vm.dataForm.ps_id = vm.dataForm.ps_id.value
+      const res = await vm.$axios.post('paket/register', vm.dataForm)
+      if(res.data.status == 200){
+        vm.visible = false
+        vm.$emit('refresh')
+        vm.$toast.add({ severity: 'success', summary: 'Konfirmasi', detail: 'Berhasil Register paket ps', life: 3000 });
+      }else{
+        vm.$toast.add({ severity: 'error', summary: 'Konfirmasi', detail: 'Gagal Register paket ps', life: 3000 });
+      }
     },
   },
 };

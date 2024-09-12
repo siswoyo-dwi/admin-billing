@@ -2,7 +2,7 @@
   <div class="grid">
     <div class="col-12 lg:col-12 xl:col-12">
       <div class="card mb-0">
-        <ModalRegister @refresh="getData()" :data="list_ps"/>
+        <ModalRegister v-if="list_ps.length" @refresh="getData()" :list_ps="list_ps"/>
         <DataTable 
           class="p-datatable"
           tableStyle="min-width: 50rem" 
@@ -28,9 +28,9 @@
           <Column field="nama_paket" header="Nama paket" class="" style=""></Column>
           <Column field="time" header="Durasi" class="" style=""></Column>
           <Column field="harga_paket" header="Harga" class="" style=""></Column>
-          <Column field="ps" header="ps" class="" style=""></Column>
+          <Column field="nama_ps" header="nama_ps" class="" style=""></Column>
           <Column field="actions" header="" bodyClass="text-center" style="width: 0px">
-            <template #body="{ data }">
+            <template #body="{ data , list_ps}">
               <div class="flex sm:flex-row">
                 <div class="m-1">
                   <ModalUpdate  @refresh="getData()" :data="data" :list_ps="list_ps"/>
@@ -75,16 +75,17 @@ export default {
     async getData(){
       const vm = this
       const res = await vm.$axios.post('paket/list')
-      // console.log(res)
       if(res.data.status == 200){
-        vm.items = res.data.data[0]
+        vm.items = res.data.data
+        console.log(vm.items)
+
       }
       const ps = await vm.$axios.post('ps/list')
-      // console.log(res)
       if(ps.data.status == 200){
-        vm.list_ps = ps.data.data[0]
-        console.log(this.list_ps);
-        
+        for (let i = 0; i <  ps.data.data[0].length; i++) {
+          vm.list_ps.push({label:ps.data.data[0][i].nama_ps,value:ps.data.data[0][i].ps_id}) 
+
+        }
       }
     }
   },
