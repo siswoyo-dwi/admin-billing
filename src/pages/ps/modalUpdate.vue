@@ -12,8 +12,8 @@
     <Dialog v-model:visible="visible" :modal="true" class="p-fluid" header="Update ps" :breakpoints="{ '960px': '80vw' }" :style="{ width: '50vw' }" @hide="hideModal()">
       <div class="" style="">
         <div class="flex flex-column gap-2">
-          <label for="username">Username</label>
-          <InputText id="username" v-model="dataForm.username" aria-describedby="username-help" :class="{'p-invalid': v$.dataForm.username.$invalid}"/>
+          <label for="nama_ps">PS</label>
+          <InputText id="nama_ps" v-model="dataForm.nama_ps" aria-describedby="nama_ps-help" :class="{'p-invalid': v$.dataForm.nama_ps.$invalid}"/>
         </div>
       </div>
       <template #footer>
@@ -48,7 +48,7 @@ export default {
       visible: false,
       dataForm: {
         fakultas_id: null,
-        username: null,
+        nama_ps: null,
       },
     };
   },
@@ -63,7 +63,7 @@ export default {
   validations () {
     return {
       dataForm: {
-        username: { required },
+        nama_ps: { required },
       }
     }
   },

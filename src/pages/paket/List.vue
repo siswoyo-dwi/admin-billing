@@ -2,7 +2,7 @@
   <div class="grid">
     <div class="col-12 lg:col-12 xl:col-12">
       <div class="card mb-0">
-        <ModalRegister @refresh="getData()" />
+        <ModalRegister @refresh="getData()" :data="list_ps"/>
         <DataTable 
           class="p-datatable"
           tableStyle="min-width: 50rem" 
@@ -25,12 +25,15 @@
               {{1 + index}}
             </template>
           </Column>
-          <Column field="nama_ps" header="Nama Ps" class="" style=""></Column>
+          <Column field="nama_paket" header="Nama paket" class="" style=""></Column>
+          <Column field="time" header="Durasi" class="" style=""></Column>
+          <Column field="harga_paket" header="Harga" class="" style=""></Column>
+          <Column field="ps" header="ps" class="" style=""></Column>
           <Column field="actions" header="" bodyClass="text-center" style="width: 0px">
             <template #body="{ data }">
               <div class="flex sm:flex-row">
                 <div class="m-1">
-                  <ModalUpdate  @refresh="getData()" :data="data"/>
+                  <ModalUpdate  @refresh="getData()" :data="data" :list_ps="list_ps"/>
                 </div>
                 <div class="m-1">
                   <ModalDelete  @refresh="getData()" :data="data"/>
@@ -58,6 +61,7 @@ export default {
   data() {
     return {
       items: [],
+      list_ps: [],
       filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
       },
@@ -70,10 +74,17 @@ export default {
   methods: {
     async getData(){
       const vm = this
-      const res = await vm.$axios.post('ps/list')
+      const res = await vm.$axios.post('paket/list')
       // console.log(res)
       if(res.data.status == 200){
         vm.items = res.data.data[0]
+      }
+      const ps = await vm.$axios.post('ps/list')
+      // console.log(res)
+      if(ps.data.status == 200){
+        vm.list_ps = ps.data.data[0]
+        console.log(this.list_ps);
+        
       }
     }
   },

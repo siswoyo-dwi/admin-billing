@@ -12,28 +12,19 @@ const routes = [
                 path: '/login',
                 name: 'Login',
               component: () => import('./pages/Login.vue')
-            },
-            // {
-            //   path: '/login',
-            //   name: 'Login',
-            //   component: () => import('./pages/Login.vue')
-            // },
-            {
+            },{
               path: '/error',
               name: 'Error',
               component: () => import('./pages/Error.vue')
-            },
-            {
+            },{
               path: '/notfound',
               name: 'Notfound',
               component: () => import('./pages/NotFound.vue')
-            },
-            {
+            },{
               path: '/access',
               name: 'Access',
               component: () => import('./pages/Access.vue')
-            },
-            {
+            },{
               path: '/dashboard',
               name: 'dashboard',
               exact: true,
@@ -41,24 +32,47 @@ const routes = [
               meta: {
                   breadcrumb: [{ parent: 'Dashboard', label: 'Sales Dashboard' }],
               },
-          },
-          {
-            path: '/Ps',
-            name: 'Ps',
-            exact: true,
-            component: () => import('./pages/ps/List.vue'),
-            meta: {
-                breadcrumb: [{ parent: 'Master', label: 'Ps' }],
+            },{
+              path: '/Ps',
+              name: 'Ps',
+              exact: true,
+              component: () => import('./pages/ps/List.vue'),
+              meta: {
+                  breadcrumb: [{ parent: 'Master', label: 'Ps' }],
+              },
+            },{
+                path: '/jajan',
+                name: 'jajan',
+                exact: true,
+                component: () => import('./pages/jajan/List.vue'),
+                meta: {
+                    breadcrumb: [{ parent: 'Master', label: 'jajan' }],
+                },
+            },{
+                path: '/paket',
+                name: 'paket',
+                exact: true,
+                component: () => import('./pages/paket/List.vue'),
+                meta: {
+                    breadcrumb: [{ parent: 'Master', label: 'paket' }],
+                },
+            },{
+              path: '/pendapatan',
+              name: 'pendapatan',
+              exact: true,
+              component: () => import('./pages/pendapatan/List.vue'),
+              meta: {
+                  breadcrumb: [{ parent: 'Master', label: 'pendapatan' }],
+              },
+            },{
+                path: '/pengeluaran',
+                name: 'pengeluaran',
+                exact: true,
+                  component: () => import('./pages/pengeluaran/List.vue'),
+                  meta: {
+                      breadcrumb: [{ parent: 'Master', label: 'pengeluaran' }],
+                  },
             },
-        },        {
-          path: '/jajan',
-          name: 'jajan',
-          exact: true,
-          component: () => import('./pages/jajan/List.vue'),
-          meta: {
-              breadcrumb: [{ parent: 'Master', label: 'jajan' }],
-          },
-      },
           ]},  
     {
         path: '/',

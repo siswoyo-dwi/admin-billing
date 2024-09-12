@@ -14,11 +14,11 @@
                 <div class="form-container">
                     <span class="p-input-icon-left">
                         <i class="pi pi-user pi-fw"></i>
-                        <InputText value="username" v-model="data.username" type="text" placeholder="username" />
+                        <InputText v-model="data.username" type="text" placeholder="username" />
                     </span>
                     <span class="p-input-icon-left">
                         <i class="pi pi-key"></i>
-                        <InputText value="password" v-model="data.password" type="password" placeholder="Password" />
+                        <InputText v-model="data.password" type="password" placeholder="Password" />
                     </span>
                     <a href="#" class="flex">Forgot your password?</a>
                 </div>
