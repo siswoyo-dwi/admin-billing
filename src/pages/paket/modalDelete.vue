@@ -33,13 +33,13 @@ export default {
       accept: async () => {
         console.log(vm.data);
         
-        const res = await vm.$axios.post('ps/delete', vm.data)
+        const res = await vm.$axios.post('paket/delete', vm.data)
         if(res.data.status == 200){
           vm.visible = false
           vm.$emit('refresh')
-          vm.$toast.add({ severity: 'success', summary: 'Konfirmasi', detail: 'Berhasil Delete ps', life: 3000 });
+          vm.$toast.add({ severity: 'success', summary: 'Konfirmasi', detail: 'Berhasil Delete Paket', life: 3000 });
         }else{
-          vm.$toast.add({ severity: 'error', summary: 'Konfirmasi', detail: 'Gagal Delete ps', life: 3000 });
+          vm.$toast.add({ severity: 'error', summary: 'Konfirmasi', detail: 'Gagal Delete Paket', life: 3000 });
         }
       }
       });

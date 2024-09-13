@@ -84,13 +84,18 @@ export default {
 				{role: [ 'superuser' ],
 					label: "Master", icon: "pi pi-fw pi-star-fill",
 					items: [
-						{label: "Ps", icon: "pi pi-fw pi-table", to: "/ps"},
-						{label: "jajan", icon: "pi pi-fw pi-table", to: "/jajan"},
-						{label: "paket", icon: "pi pi-fw pi-table", to: "/paket"},
-						{label: "unit", icon: "pi pi-fw pi-table", to: "/unit"},
+						{label: "Ps", icon: "pi pi-fw pi-desktop", to: "/ps"},
+						{label: "jajan", icon: "pi pi-fw pi-wallet", to: "/jajan"},
+						{label: "paket", icon: "pi pi-fw pi-book", to: "/paket"},
+						{label: "unit", icon: "pi pi-fw pi-clone", to: "/unit"},
 					]
 				},
-			
+				{role: [ 'superuser' ],
+					label: "Billing", icon: "pi pi-fw pi-clock",
+					items: [
+						{label: "Billing", icon: "pi pi-fw pi-desktop", to: "/Billing"},
+					]
+				},
                 // {role: [ 'superuser' ],
                 //     label: "UI Kit", icon: "pi pi-fw pi-star-fill",
                 //     items: [

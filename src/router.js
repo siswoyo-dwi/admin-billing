@@ -72,13 +72,36 @@ const routes = [
                   meta: {
                       breadcrumb: [{ parent: 'Master', label: 'pengeluaran' }],
                   },
+              },{
+                path: '/unit',
+                name: 'unit',
+                exact: true,
+                  component: () => import('./pages/unit/List.vue'),
+                  meta: {
+                      breadcrumb: [{ parent: 'Master', label: 'unit' }],
+                  },
+            },{
+              path: '/billing',
+              name: 'billing',
+              exact: true,
+                component: () => import('./pages/billing/List.vue'),
+                meta: {
+                    breadcrumb: [{ parent: 'Master', label: 'billing' }],
+                },
             },
           ]},  
     {
         path: '/',
         name: '',
         component: App,
-    children: []}
+    children: [    {
+      path: '/icons',
+      name: 'icons',
+      component: () => import('./utilities/Icons.vue'),
+      meta: {
+          breadcrumb: [{ parent: 'Utilities', label: 'Icons' }],
+      },
+  },]}
     // [
     // {
     //     path: '/dashboard',

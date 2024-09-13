@@ -22,8 +22,6 @@ const store = createStore({
       state.token = val.token
       state.is_login = 1
       state.role = val.data.role
-console.log( val.data.role);
-
     },
     logout(state) {
       state.login = {}

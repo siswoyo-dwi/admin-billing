@@ -33,7 +33,7 @@ export default {
       accept: async () => {
         console.log(vm.data);
         
-        const res = await vm.$axios.post('unit/delete', vm.data)
+        const res = await vm.$axios.post('ps/delete', vm.data)
         if(res.data.status == 200){
           vm.visible = false
           vm.$emit('refresh')

@@ -9,19 +9,12 @@
       @click="openModal()"
       v-tooltip.left="`Update ps`"
     />
-    <Dialog v-model:visible="visible" :modal="true" class="p-fluid" header="Add" :breakpoints="{ '960px': '80vw' }" :style="{ width: '50vw' }" @hide="visible = false">
+    <Dialog v-model:visible="visible" :modal="true" class="p-fluid" header="Update ps" :breakpoints="{ '960px': '80vw' }" :style="{ width: '50vw' }" @hide="hideModal()">
       <div class="" style="">
         <div class="flex flex-column gap-2">
-          <label for="nama_unit">Nama unit</label>
-          <InputText id="nama_unit" v-model="dataForm.nama_unit" aria-describedby="nama_unit-help" :class="{'p-invalid': v$.dataForm.$invalid}"/>
+          <label for="nama_ps">Nama ps</label>
+          <InputText id="nama_ps" v-model="dataForm.nama_ps" aria-describedby="nama_ps-help" :class="{'p-invalid': v$.dataForm.nama_ps.$invalid}"/>
         </div>
-    
-        <div class="flex flex-column gap-2">
-          <label for="ps_id">Ps</label>
-          <Dropdown id="inventoryStatus"             optionValue="value" 
-          v-model="dataForm.ps_id"  :options="list_ps" optionLabel="label"             placeholder="Pilih Ps" 
-          class="w-full"    :class="{'p-invalid': v$.dataForm.$invalid && afterSubmit}"/>
- </div>
       </div>
       <template #footer>
         <div class="flex justify-content-end">
@@ -43,7 +36,7 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 export default {
-  props: [ 'data','list_ps' ],
+  props: [ 'data' ],
   emits: [ 'refresh' ],
   components: {
   },
@@ -53,10 +46,9 @@ export default {
   data() {
     return {
       visible: false,
-      afterSubmit: false,
       dataForm: {
-        nama_unit:null,
-        ps_id:null,
+        fakultas_id: null,
+        nama_ps: null,
       },
     };
   },
@@ -71,43 +63,33 @@ export default {
   validations () {
     return {
       dataForm: {
-        nama_unit: { required },
-        ps_id: { required },
+        nama_ps: { required },
       }
     }
   },
   mounted() {
-    console.log(this.list_ps);
-    
   },
   methods: {
     openModal(){
       const vm = this
-      vm.visible = true    
+      vm.visible = true
       vm.dataForm = JSON.parse(JSON.stringify(vm.data))
-  
       vm.v$.$reset();
     },
     hideModal(){
       const vm = this
       vm.visible = false
-      vm.dataForm = {
-        nama_unit: null,
-        ps_id:null,
-      }
     },
     async submit(){
       const vm = this
-      vm.afterSubmit = true
-      console.log(vm.dataForm);
-      vm.dataForm.ps_id = vm.dataForm.ps_id.value
-      const res = await vm.$axios.post('unit/update', vm.dataForm)
+      // console.log('dataform', vm.dataForm)
+      const res = await vm.$axios.post('ps/update', vm.dataForm)
       if(res.data.status == 200){
         vm.visible = false
         vm.$emit('refresh')
-        vm.$toast.add({ severity: 'success', summary: 'Konfirmasi', detail: 'Berhasil update unit ps', life: 3000 });
+        vm.$toast.add({ severity: 'success', summary: 'Konfirmasi', detail: 'Berhasil Update ps', life: 3000 });
       }else{
-        vm.$toast.add({ severity: 'error', summary: 'Konfirmasi', detail: 'Gagal update unit ps', life: 3000 });
+        vm.$toast.add({ severity: 'error', summary: 'Konfirmasi', detail: 'Gagal Update ps', life: 3000 });
       }
     },
   },

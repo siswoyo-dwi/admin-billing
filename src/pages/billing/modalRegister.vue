@@ -1,27 +1,19 @@
 <template>
   <div class="">
     <Button 
-      label=""
-      class=""
+      icon="pi pi-plus"
+      class="mb-3"
       size="small"
-      severity="warning"
-      icon="pi pi-pencil"
-      @click="openModal()"
-      v-tooltip.left="`Update ps`"
+      @click="visible = true"
+      v-tooltip.left="`Register Billing`"
     />
     <Dialog v-model:visible="visible" :modal="true" class="p-fluid" header="Add" :breakpoints="{ '960px': '80vw' }" :style="{ width: '50vw' }" @hide="visible = false">
       <div class="" style="">
         <div class="flex flex-column gap-2">
-          <label for="nama_unit">Nama unit</label>
-          <InputText id="nama_unit" v-model="dataForm.nama_unit" aria-describedby="nama_unit-help" :class="{'p-invalid': v$.dataForm.$invalid}"/>
-        </div>
-    
-        <div class="flex flex-column gap-2">
-          <label for="ps_id">Ps</label>
-          <Dropdown id="inventoryStatus"             optionValue="value" 
-          v-model="dataForm.ps_id"  :options="list_ps" optionLabel="label"             placeholder="Pilih Ps" 
+          <label for="paket_id">Paket</label>
+          <Dropdown id="inventoryStatus"    v-model="dataForm.paket"  :options="list_paket" optionLabel="label" placeholder="Pilih paket" 
           class="w-full"    :class="{'p-invalid': v$.dataForm.$invalid && afterSubmit}"/>
- </div>
+        </div>
       </div>
       <template #footer>
         <div class="flex justify-content-end">
@@ -43,7 +35,7 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 export default {
-  props: [ 'data','list_ps' ],
+  props: [ 'data','list_paket' ],
   emits: [ 'refresh' ],
   components: {
   },
@@ -54,10 +46,7 @@ export default {
     return {
       visible: false,
       afterSubmit: false,
-      dataForm: {
-        nama_unit:null,
-        ps_id:null,
-      },
+      dataForm: {paket:null},
     };
   },
   computed: {
@@ -71,8 +60,7 @@ export default {
   validations () {
     return {
       dataForm: {
-        nama_unit: { required },
-        ps_id: { required },
+        paket: { required },
       }
     }
   },
@@ -83,31 +71,35 @@ export default {
   methods: {
     openModal(){
       const vm = this
-      vm.visible = true    
-      vm.dataForm = JSON.parse(JSON.stringify(vm.data))
-  
+      vm.visible = true      
       vm.v$.$reset();
     },
     hideModal(){
       const vm = this
       vm.visible = false
       vm.dataForm = {
-        nama_unit: null,
-        ps_id:null,
+        paket: null,
       }
     },
     async submit(){
       const vm = this
       vm.afterSubmit = true
-      console.log(vm.dataForm);
-      vm.dataForm.ps_id = vm.dataForm.ps_id.value
-      const res = await vm.$axios.post('unit/update', vm.dataForm)
+      vm.dataForm.post={}
+      vm.dataForm.post.paket_id = vm.dataForm.paket.paket_id
+      vm.dataForm.post.unit_id = this.data.unit_id
+      vm.dataForm.post.user_id = this.$store.state.login.id
+      vm.dataForm.post.mulai = vm.$moment().format()
+      vm.dataForm.post.harga_paket = vm.dataForm.paket.harga_paket
+      vm.dataForm.post.status = 1
+      const res = await vm.$axios.post('pendapatan/register', vm.dataForm.post)
+      console.log(res);      
+
       if(res.data.status == 200){
         vm.visible = false
         vm.$emit('refresh')
-        vm.$toast.add({ severity: 'success', summary: 'Konfirmasi', detail: 'Berhasil update unit ps', life: 3000 });
+        vm.$toast.add({ severity: 'success', summary: 'Konfirmasi', detail: 'Berhasil Register billing', life: 3000 });
       }else{
-        vm.$toast.add({ severity: 'error', summary: 'Konfirmasi', detail: 'Gagal update unit ps', life: 3000 });
+        vm.$toast.add({ severity: 'error', summary: 'Konfirmasi', detail: 'Gagal Register billing', life: 3000 });
       }
     },
   },

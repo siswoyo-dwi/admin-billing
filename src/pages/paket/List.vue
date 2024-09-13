@@ -28,12 +28,12 @@
           <Column field="nama_paket" header="Nama paket" class="" style=""></Column>
           <Column field="time" header="Durasi" class="" style=""></Column>
           <Column field="harga_paket" header="Harga" class="" style=""></Column>
-          <Column field="nama_ps" header="nama_ps" class="" style=""></Column>
+          <Column field="nama_ps" header="PS" class="" style=""></Column>
           <Column field="actions" header="" bodyClass="text-center" style="width: 0px">
-            <template #body="{ data , list_ps}">
+            <template #body="{ data }">
               <div class="flex sm:flex-row">
                 <div class="m-1">
-                  <ModalUpdate  @refresh="getData()" :data="data" :list_ps="list_ps"/>
+                  <ModalUpdate  v-if="list_ps.length"  @refresh="getData()" :data="data" :list_ps="list_ps"/>
                 </div>
                 <div class="m-1">
                   <ModalDelete  @refresh="getData()" :data="data"/>
@@ -81,6 +81,8 @@ export default {
 
       }
       const ps = await vm.$axios.post('ps/list')
+      vm.list_ps = []
+
       if(ps.data.status == 200){
         for (let i = 0; i <  ps.data.data[0].length; i++) {
           vm.list_ps.push({label:ps.data.data[0][i].nama_ps,value:ps.data.data[0][i].ps_id}) 
