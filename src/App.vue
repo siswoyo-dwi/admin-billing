@@ -87,8 +87,7 @@ export default {
 						{label: "Ps", icon: "pi pi-fw pi-table", to: "/ps"},
 						{label: "jajan", icon: "pi pi-fw pi-table", to: "/jajan"},
 						{label: "paket", icon: "pi pi-fw pi-table", to: "/paket"},
-						{label: "pendapatan", icon: "pi pi-fw pi-table", to: "/pendapatan"},
-						{label: "pengeluaran", icon: "pi pi-fw pi-table", to: "/pengeluaran"},
+						{label: "unit", icon: "pi pi-fw pi-table", to: "/unit"},
 					]
 				},
 			
