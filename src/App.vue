@@ -214,7 +214,6 @@ export default {
     },  async mounted() {
     const vm = this
 	vm.is_login=this.$store.state.is_login
-	console.log([vm.$store.state.is_login,vm.is_login]);		
     vm.menu = await vm.filterMenu(vm.menu)
 	},
     methods: {
@@ -228,9 +227,7 @@ export default {
         //role
         if(x.role){
           akses = false
-          for (let u = 0; u < x.role.length; u++) {
-			console.log(x.role[u]);
-			
+          for (let u = 0; u < x.role.length; u++) {			
             const y = x.role[u];
             if(y == this.$store.state.role){
               akses = true

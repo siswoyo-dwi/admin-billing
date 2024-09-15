@@ -30,10 +30,8 @@ export default {
       header: 'Konfirmasi',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'hapus',
-      accept: async () => {
-        console.log(vm.data);
-        
-        const res = await vm.$axios.post('ps/delete', vm.data)
+      accept: async () => {        
+        const res = await vm.$axios.post('pendapatan/update',{status:3,pendapatan_id:vm.data.pendapatan_id})
         if(res.data.status == 200){
           vm.visible = false
           vm.$emit('refresh')

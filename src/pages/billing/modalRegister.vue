@@ -64,9 +64,7 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log(this.list_ps);
-    
+  mounted() {    
   },
   methods: {
     openModal(){
@@ -88,12 +86,13 @@ export default {
       vm.dataForm.post.paket_id = vm.dataForm.paket.paket_id
       vm.dataForm.post.unit_id = this.data.unit_id
       vm.dataForm.post.user_id = this.$store.state.login.id
-      vm.dataForm.post.mulai = vm.$moment().format()
+      vm.dataForm.post.mulai = vm.$moment().format()      
+      if (vm.dataForm.paket.nama_paket !='Reguler') {
+        vm.dataForm.post.selesai = vm.$moment().add(vm.dataForm.paket.time, 'minutes').format()
+      }
       vm.dataForm.post.harga_paket = vm.dataForm.paket.harga_paket
-      vm.dataForm.post.status = 1
+      vm.dataForm.post.status = 1      
       const res = await vm.$axios.post('pendapatan/register', vm.dataForm.post)
-      console.log(res);      
-
       if(res.data.status == 200){
         vm.visible = false
         vm.$emit('refresh')

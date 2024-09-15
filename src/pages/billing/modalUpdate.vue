@@ -1,4 +1,6 @@
 <template>
+          <Toast />
+
   <div class="">
     <Button 
       label=""
@@ -7,13 +9,14 @@
       severity="warning"
       icon="pi pi-pencil"
       @click="openModal()"
-      v-tooltip.left="`Update ps`"
+      v-tooltip.left="`Pindah Unit`"
     />
-    <Dialog v-model:visible="visible" :modal="true" class="p-fluid" header="Update ps" :breakpoints="{ '960px': '80vw' }" :style="{ width: '50vw' }" @hide="hideModal()">
+    <Dialog v-model:visible="visible" :modal="true" class="p-fluid" header="Pindah Unit" :breakpoints="{ '960px': '80vw' }" :style="{ width: '50vw' }" @hide="hideModal()">
       <div class="" style="">
         <div class="flex flex-column gap-2">
-          <label for="nama_ps">Nama ps</label>
-          <InputText id="nama_ps" v-model="dataForm.nama_ps" aria-describedby="nama_ps-help" :class="{'p-invalid': v$.dataForm.nama_ps.$invalid}"/>
+          <label for="unit_id">unit</label>
+          <Dropdown id="inventoryStatus"   optionValue="unit_id"    v-model="dataForm.unit_id"  :options="list_unit" optionLabel="nama_unit" placeholder="Pilih unit" 
+          class="w-full"    :class="{'p-invalid': v$.dataForm.$invalid && afterSubmit}"/>
         </div>
       </div>
       <template #footer>
@@ -36,7 +39,7 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 export default {
-  props: [ 'data' ],
+  props: [ 'data' ,'list_unit'],
   emits: [ 'refresh' ],
   components: {
   },
@@ -47,8 +50,7 @@ export default {
     return {
       visible: false,
       dataForm: {
-        fakultas_id: null,
-        nama_ps: null,
+        unit: null,
       },
     };
   },
@@ -63,7 +65,7 @@ export default {
   validations () {
     return {
       dataForm: {
-        nama_ps: { required },
+        unit_id: { required },
       }
     }
   },
@@ -82,14 +84,16 @@ export default {
     },
     async submit(){
       const vm = this
-      // console.log('dataform', vm.dataForm)
-      const res = await vm.$axios.post('ps/update', vm.dataForm)
+      const res = await vm.$axios.post('pendapatan/update', vm.dataForm)
+      console.log(res.data);
+      
       if(res.data.status == 200){
         vm.visible = false
         vm.$emit('refresh')
-        vm.$toast.add({ severity: 'success', summary: 'Konfirmasi', detail: 'Berhasil Update ps', life: 3000 });
+        vm.$toast.add({ severity: 'success', summary: 'Konfirmasi', detail: 'Berhasil Pindah Paket', life: 3000 });
       }else{
-        vm.$toast.add({ severity: 'error', summary: 'Konfirmasi', detail: 'Gagal Update ps', life: 3000 });
+        vm.visible = false
+        vm.$toast.add({ severity: 'error', summary: 'Konfirmasi', detail: 'Gagal Pindah Paket', life: 3000 });
       }
     },
   },
