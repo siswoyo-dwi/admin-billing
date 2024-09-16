@@ -98,9 +98,7 @@ export default {
             if (res.data.data[0][i].selesai) {
               res.data.data[0][i].jam_selesai = this.$moment(res.data.data[0][i].selesai ).format('M-D-YYYY  H:mm:ss')
             }
-            vm.items.push(res.data.data[0][i])
-            console.log(res.data.data[0][i]);
-            
+            vm.items.push(res.data.data[0][i])            
           }
       }
       const ps = await vm.$axios.post('ps/list')
@@ -125,20 +123,30 @@ export default {
       const sekarang = this.$moment()
       const mulai = this.$moment(jam_mulai);
       const selisihMenit = sekarang.diff(mulai, 'minutes');      
-      // Hitung harga berdasarkan selisih waktu dan harga paket
+      // Hitung harga berdasarkan selisih waktu dan harga paket      
+      console.log([selisihMenit * harga_paket,selisihMenit , harga_paket]);
+      
       return selisihMenit * harga_paket;
+    },
+    playSound() {
+      const audio = new Audio(require('@/assets/mixkit-software-interface-start-2574.wav'));
+      audio.play();
     },
     startAutoUpdate() {
       // Perbarui harga setiap 1 menit (60.000 ms)
       this.intervalId = setInterval(() => {
         this.items.forEach(item => {          
-          if (item.jam_mulai&&item.nama_paket=='Reguler') {
-            item.kalkulasi_biaya = this.calculatePrice(item.mulai, item.harga_paket);
+          if (item.jam_mulai&&item.status==1&&item.nama_paket=='Reguler') {
+            item.kalkulasi_biaya = this.calculatePrice(item.mulai, item.harga_paket); 
           }else{
             item.kalkulasi_biaya = item.harga_paket
           }          
+          if (item.selesai<=this.$moment()&&item.status==1&&item.nama_paket!='Reguler') {
+            this.$toast.add({ severity: 'error', summary: `Paket Selesai`, detail: `${item.nama_unit} Paket Telah Selesai`, life: 30000 });
+            this.playSound();
+          }
         });
-      }, 6000);
+      }, 60000);
     }
   },
 };

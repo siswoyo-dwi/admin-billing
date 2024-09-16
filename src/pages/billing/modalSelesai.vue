@@ -31,7 +31,9 @@ export default {
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Bayar',
       accept: async () => {
-        const res = await vm.$axios.post('pendapatan/update',{status:2,selesai:vm.data.nama_paket =='Reguler'?vm.$moment().format():null,pendapatan_id:vm.data.pendapatan_id})
+        console.log(vm.data);
+        
+        const res = await vm.$axios.post('pendapatan/update_status',{harga_paket:vm.data.kalkulasi_biaya,status:2,selesai:vm.data.nama_paket =='Reguler'?vm.$moment().format():vm.data.selesai,pendapatan_id:vm.data.pendapatan_id})
         if(res.data.status == 200){
           vm.visible = false
           vm.$emit('refresh')
