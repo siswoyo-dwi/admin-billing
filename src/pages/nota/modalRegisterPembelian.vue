@@ -5,22 +5,19 @@
       class="mb-3"
       size="small"
       @click="visible = true"
-      v-tooltip.left="`Register Ps`"
+      v-tooltip.left="`Register`"
     />
     <Dialog v-model:visible="visible" :modal="true" class="p-fluid" header="Add" :breakpoints="{ '960px': '80vw' }" :style="{ width: '50vw' }" @hide="visible = false">
+      <div class="flex flex-column gap-2">
+        <label for="jajan_id">jajan</label>
+        <Dropdown id="inventoryStatus"    v-model="dataForm.jajan_id"  :options="list_jajan" optionLabel="nama_jajan"             placeholder="Pilih jajan" 
+        class="w-full"    :class="{'p-invalid': v$.dataForm.$invalid && afterSubmit}"/>
+      </div>
       <div class="" style="">
         <div class="flex flex-column gap-2">
-          <label for="nama_jajan">Nama Jajan</label>
-          <InputText id="nama_jajan" v-model="dataForm.nama_jajan" aria-describedby="nama_jajan-help" :class="{'p-invalid': v$.dataForm.nama_jajan.$invalid}"/>
+          <label for="atas_nama">Atas Nama</label>
+          <InputText id="atas_nama" v-model="dataForm.atas_nama" aria-describedby="atas_nama-help" :class="{'p-invalid': v$.dataForm.atas_nama.$invalid}"/>
         </div>
-      </div>
-      <div class="flex flex-column gap-2">
-        <label for="harga_beli">Harga beli</label>
-        <InputNumber id="harga_beli" integeronly v-model="dataForm.harga_beli" aria-describedby="harga_paket-help" :class="{'p-invalid': v$.dataForm.$invalid}"/>
-      </div>
-      <div class="flex flex-column gap-2">
-        <label for="harga_jual">Harga jual</label>
-        <InputNumber id="harga_jual" integeronly v-model="dataForm.harga_jual" aria-describedby="harga_paket-help" :class="{'p-invalid': v$.dataForm.$invalid}"/>
       </div>
       <template #footer>
         <div class="flex justify-content-end">
@@ -52,9 +49,8 @@ export default {
     return {
       visible: false,
       dataForm: {
-        nama_jajan: null,
-        harga_beli:null,
-        harga_jual:null,
+        no_nota: null,
+        atas_nama:null,
       },
     };
   },
@@ -69,9 +65,8 @@ export default {
   validations () {
     return {
       dataForm: {
-        nama_jajan: { required },
-        harga_beli: { required },
-        harga_jual: { required },
+        no_nota: { required },
+        atas_nama: { required },
       }
     }
   },
@@ -87,14 +82,13 @@ export default {
       const vm = this
       vm.visible = false
       vm.dataForm = {
-        harga_beli:null,
-        harga_jual:null,
-        nama_jajan: null,
+        atas_nama:null,
+        no_nota: null,
       }
     },
     async submit(){
       const vm = this
-      const res = await vm.$axios.post('jajan/register', vm.dataForm)
+      const res = await vm.$axios.post('nota/register', vm.dataForm)
       if(res.data.status == 200){
         vm.visible = false
         vm.$emit('refresh')

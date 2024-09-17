@@ -91,9 +91,10 @@ export default {
 					]
 				},
 				{role: [ 'superuser' ],
-					label: "Billing", icon: "pi pi-fw pi-clock",
+					label: "Pembayaran", icon: "pi pi-fw pi-clock",
 					items: [
 						{label: "Billing", icon: "pi pi-fw pi-desktop", to: "/Billing"},
+						{label: "nota", icon: "pi pi-fw pi-wallet", to: "/nota"},
 					]
 				},
                 // {role: [ 'superuser' ],

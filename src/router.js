@@ -88,6 +88,14 @@ const routes = [
                 meta: {
                     breadcrumb: [{ parent: 'Master', label: 'billing' }],
                 },
+              },{
+                path: '/nota',
+                name: 'nota',
+                exact: true,
+                  component: () => import('./pages/nota/List.vue'),
+                  meta: {
+                      breadcrumb: [{ parent: 'Master', label: 'nota' }],
+                  },
             },
           ]},  
     {
