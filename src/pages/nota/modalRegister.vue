@@ -90,6 +90,8 @@ export default {
     },
     async submit(){
       const vm = this
+      vm.dataForm.user_id = this.$store.state.login.id
+
       const res = await vm.$axios.post('nota/register', vm.dataForm)
       if(res.data.status == 200){
         vm.visible = false
