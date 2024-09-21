@@ -2,6 +2,7 @@
   <div class="grid">
     <div class="col-12 lg:col-12 xl:col-12">
       <div class="card mb-0">
+        <label for="">Total Pendapatan = {{ total_pendapatan }}</label>
         <DataTable 
           class="p-datatable"
           tableStyle="min-width: 50rem" 
@@ -68,6 +69,7 @@ export default {
   },
   data() {
     return {
+      total_pendapatan:0,
       items: [],
       list_unit: [],
       list_ps: [],
@@ -132,8 +134,14 @@ export default {
       const audio = new Audio(require('@/assets/mixkit-software-interface-start-2574.wav'));
       audio.play();
     },
-    startAutoUpdate() {
+  async  startAutoUpdate() {
       // Perbarui harga setiap 1 menit (60.000 ms)
+      let vm = this
+      console.log(vm.$moment().format('YYYY-MM-DD'));
+
+      const total = await vm.$axios.post('pendapatan/sum_pendapatan_harian',{date:vm.$moment().format('YYYY-MM-DD')})      
+      
+      vm.total_pendapatan = total.data.data[0].total?total.data.data[0].total:0
       this.intervalId = setInterval(() => {
         this.items.forEach(item => {          
           if (item.jam_mulai&&item.status==1&&item.nama_paket=='Reguler') {
