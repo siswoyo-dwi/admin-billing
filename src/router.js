@@ -28,9 +28,9 @@ const routes = [
               path: '/dashboard',
               name: 'dashboard',
               exact: true,
-              component: () => import('./components/Dashboard.vue'),
+              component: () => import('./components/DashboardBilling.vue'),
               meta: {
-                  breadcrumb: [{ parent: 'Dashboard', label: 'Sales Dashboard' }],
+                  breadcrumb: [{ parent: 'Dashboard', label: 'Billing Dashboard' }],
               },
             },{
               path: '/Ps',
